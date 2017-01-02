@@ -1,0 +1,24 @@
+{
+    "pipeline": {
+        "name": "to_sql"
+    },
+    "inputs": [
+      {
+        "repo": { "name": "data" },
+        "method": "map"
+      }
+    ],
+    "transform": {
+        "image": "msteffenpachyderm/to_sql",
+        "cmd" : ["/bin/sh"],
+        "stdin": [
+            "python /usr/bin/to_sql.py my_table \\",
+            "</pfs/data/data.json \\",
+            ">/pfs/out/rows.sql"
+        ]
+    },
+    "parallelism_spec": {
+      "strategy": "CONSTANT",
+      "constant": 1
+    }
+}
